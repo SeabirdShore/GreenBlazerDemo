@@ -1,5 +1,5 @@
 pandas
 plotly
-PIL
+pillow
 streamlit
 
