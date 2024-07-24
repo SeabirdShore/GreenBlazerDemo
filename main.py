@@ -12,13 +12,23 @@ df = pd.DataFrame(data)
 
 # Plot
 fig = go.Figure()
+fig.add_trace(go.Scatter(
+    x=df["替代率（甲醇比例）%"],
+    y=df["热流辐射强度（W/m²）"],
+    mode='lines+markers',
+    name='热流辐射强度（W/m²）',
+    yaxis='y1',
+    line=dict(color='#23BAC5')  # 指定线条颜色
+))
 
-fig.add_trace(go.Scatter(x=df["替代率（甲醇比例）%"], y=df["热流辐射强度（W/m²）"],
-                         mode='lines+markers', name='热流辐射强度（W/m²）', yaxis='y1'))
-
-fig.add_trace(go.Scatter(x=df["替代率（甲醇比例）%"], y=df["PM10测量浓度（μg/m³）"],
-                         mode='lines+markers', name='PM10测量浓度（μg/m³）', yaxis='y2'))
-
+fig.add_trace(go.Scatter(
+    x=df["替代率（甲醇比例）%"],
+    y=df["PM10测量浓度（μg/m³）"],
+    mode='lines+markers',
+    name='PM10测量浓度（μg/m³）',
+    yaxis='y2',
+    line=dict(color='#A5C2E2')  # 指定线条颜色
+))
 # Create axis objects
 fig.update_layout(
     xaxis=dict(title='替代率（甲醇比例）%'),
@@ -65,7 +75,7 @@ result_image = overlay_images(imageA_path, imageB_path, (int(400*(ratio-0.1))+20
 placeholder.image(result_image)
 # Streamlit display
 pp=st.popover("Display Combustion Data")
-pp.plotly_chart(fig)
+pp.plotly_chart(fig,use_container_width=True)
 cols=st.columns(3)
 with cols[1]:
     st.image('./static/mol8.png',caption='Radiation', use_column_width=True)
