@@ -40,11 +40,8 @@ fig.update_layout(
 
 prev_ratio=0.1
 ratio=st.select_slider("Mixing Ratio(Methanol/Fuel)", [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
-def overlay_images(imageA_path, imageB_path, imageA_size,imageB_size):
-    # 打开图像A和图像B
-    imageA = Image.open(imageA_path)
-    imageB = Image.open(imageB_path)
-    
+def overlay_images(imageA, imageB, imageA_size,imageB_size):
+
     # 调整图像B的大小
     imageA = imageA.resize(imageA_size)
     imageB = imageB.resize(imageB_size)
@@ -63,16 +60,18 @@ def overlay_images(imageA_path, imageB_path, imageA_size,imageB_size):
     # 将图像B粘贴到新图像
     new_image.paste(imageB, (paste_x, paste_y), imageB)
     
-    return new_image.transpose(Image.FLIP_LEFT_RIGHT)
+    return new_image#.transpose(Image.FLIP_LEFT_RIGHT)
 
 # 示例使用
-imageA_path = './static/mol6.png'
-imageB_path = './static/mol5.png'
+imageA  = Image.open('./static/mol6.png')
+imageB  = Image.open('./static/mol5.png')
+imageC  = Image.open('./static/mol10.png')
 imageB_size = (200, 100)  # 设定图像B的大小
 placeholder = st.empty()
 
     
-result_image = overlay_images(imageA_path, imageB_path, (int(100*(0.1-ratio))+600,250),(int(300*(ratio-0.1))+200,100))
+result_image = overlay_images(imageC , imageA , (800,400),(int(200*(0.1-ratio))+600,250))
+result_image = overlay_images(result_image, imageB , (800,400),(int(600*(ratio-0.1))+200,100))
 placeholder.image(result_image)
 # Streamlit display
 pp=st.popover("Display Combustion Data")
@@ -89,7 +88,8 @@ with cols4[1]:
 st.image('./static/mol7.png',caption='Smelter', use_column_width=True)
 
 if( ratio!=prev_ratio):
-    result_image = overlay_images(imageA_path, imageB_path, (int(100*(0.1-ratio))+600,250),(int(300*(ratio-0.1))+200,100))
+    result_image = overlay_images(imageC , imageA , (800,400),(int(200*(0.1-ratio))+600,250))
+    result_image = overlay_images(result_image, imageB , (800,400),(int(600*(ratio-0.1))+200,100))
     placeholder.image(result_image)
     prev_ratio=ratio
 if(ratio>0.6):
