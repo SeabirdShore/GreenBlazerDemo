@@ -7,7 +7,7 @@ data = {
     "热流辐射强度（W/m²）": [4105, 4692, 5126, 5394, 6602, 6881, 7368, 8270, 8501, 9150, 9711],
     "PM10测量浓度（μg/m³）": [9.2, 58.2, 114.04, 121.46, 158.88, 176.3, 243.72, 251.14, 308.56, 345.98, 383.4]
 }
-st.title(":green[Green Methanol] Mixed Combustion System Demo :sunny")
+st.title(":green[绿色甲醇] 掺杂燃烧系统示例 :sunny")
 df = pd.DataFrame(data)
 
 # Plot
@@ -39,7 +39,7 @@ fig.update_layout(
 
 
 prev_ratio=0.1
-ratio=st.select_slider("Mixing Ratio(Methanol/Fuel)", [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+ratio=st.select_slider("甲醇掺杂率", [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
 def overlay_images(imageA, imageB, imageA_size,imageB_size):
 
     # 调整图像B的大小
@@ -78,14 +78,14 @@ pp=st.popover("Display Combustion Data")
 pp.plotly_chart(fig,use_container_width=True)
 cols=st.columns(3)
 with cols[1]:
-    st.image('./static/mol8.png',caption='Radiation', use_column_width=True)
+    st.image('./static/mol8.png',caption='辐射', use_column_width=True)
 placeholder1=st.empty()
 placeholder1.image('./static/oristate.png', use_column_width=True)
 
 cols4= st.columns(3)
 with cols4[1]:
     st.image('./static/mol8.png', use_column_width=True)
-st.image('./static/mol7.png',caption='Smelter', use_column_width=True)
+st.image('./static/mol7.png',caption='窑炉', use_column_width=True)
 
 if( ratio!=prev_ratio):
     result_image = overlay_images(imageC , imageA , (800,400),(int(200*(0.1-ratio))+600,250))
